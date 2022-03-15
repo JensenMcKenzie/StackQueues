@@ -125,12 +125,10 @@ public class CircularArrayQueueTest {
     public void testAddAfterReallocation() {
         // Populate queue to capacity with add
         populateQueue(INITIAL_CAPACITY, false);
-
         // Add additional elements which prompt reallocation
         circularQueue.add(STRING_VALUES[INITIAL_CAPACITY]);
         circularQueue.add(STRING_VALUES[INITIAL_CAPACITY + 1]);
         circularQueue.add(STRING_VALUES[INITIAL_CAPACITY + 2]);
-
         // Validate with peek and element
         assertEquals("Test failed - Call to peek should return the head of this queue.", STRING_VALUES[0], circularQueue.peek());
         assertEquals("Test failed - Call to element should return the head of this queue.", STRING_VALUES[0], circularQueue.element());

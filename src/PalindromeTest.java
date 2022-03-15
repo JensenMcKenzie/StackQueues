@@ -4,6 +4,9 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import java.util.EmptyStackException;
+import java.util.Locale;
+
 /**
  * PalindromeTest : a test class for isPalindrome, a method intended to utilize stacks to evaluate if a given
  * string is a palindrome.
@@ -39,11 +42,37 @@ public class PalindromeTest {
      * @return returns true if a palindrome (ignoring whitespace and case sensitivity), false otherwise
      */
     private boolean isPalindrome(String s) {
+        //If s is null, throw a new error
+        if (s == null)
+            throw new IllegalArgumentException();
+        //Create 3 ArrayListStacks of characters, two for the characters in string s, minus spaces. 1 for the reversed version of the string s, minus spaces
+        ArrayListStack<Character> sChars = new ArrayListStack<>();
+        ArrayListStack<Character> copySChars = new ArrayListStack<>();
+        ArrayListStack<Character> reversedSChars = new ArrayListStack<>();
 
-        // TODO:
-        // Implement this method body using your ArrayListStack. Be mindful of your algorithm!
-        return false;
-
+        //Loop through the original string
+        for (int i = 0; i < s.length(); i++){
+            //If the current character is not a space
+            if (Character.toLowerCase(s.charAt(i)) != ' '){
+                //Add the current character to both ArrayListStacks
+                sChars.push(Character.toLowerCase(s.charAt(i)));
+                copySChars.push(Character.toLowerCase(s.charAt(i)));
+            }
+        }
+        //Loop until sChars is empty
+        while(!sChars.empty()){
+            //Add a new character to reversedSChars, and remove it from sChars
+            reversedSChars.push(sChars.pop());
+        }
+        //Loop until reversedSChars is empty
+        while(!reversedSChars.empty()){
+            //Remove the top element from the copy of SChars, and reversedSChars, if they don't match, return false
+            if (copySChars.pop() != reversedSChars.pop()){
+                return false;
+            }
+        }
+        //If all the characters match, return true
+        return true;
     } // End of method isPalindrome
 
     @Test
